@@ -1,0 +1,2 @@
+model_checkpoint_path: "nh4_trial6_ne500_eps1.0e-08_max.ckpt"
+all_model_checkpoint_paths: "nh4_trial6_ne500_eps1.0e-08_max.ckpt"
