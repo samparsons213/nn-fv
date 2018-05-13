@@ -1,8 +1,11 @@
-import numpy as np
 import csv
-from DiagnosisModel import DiagnosisPrediction
-from LSTMModel import LSTM
+
+import numpy as np
+
 from DataBaseClass import DataBase
+from DiagnosisModel import DiagnosisPrediction
+from models.LSTMModel import LSTM
+
 
 class Data(DataBase):
     def __init__(self, filenames, diagnosis_labels, data_dim = 4, target_dim = 2, diag_labels_dim = 2, max_length = 3000):
@@ -88,16 +91,19 @@ class Data(DataBase):
         else:
             inp[:, :sl] = self._input_data[idx, :sl]
         out = np.zeros([batch_size, model.batch_length, model.target_dim])
+
         if isinstance(model, DiagnosisPrediction):
             out[:, :sl] = self._diagnosis_labels[idx, :sl]
         else:
             out[:, :sl] = self._output_data[idx, :sl]
+
         if isinstance(model, LSTM):
             sl = self._sequence_lengths[idx]
             feed_dict = {model.data: inp, model.targets: out, model.sequence_lengths: sl,
                 model.input_keep_prob: keep_prob, model.output_keep_prob: keep_prob, model.state_keep_prob: keep_prob}
         else:
             feed_dict = {model.data: inp, model.targets: out, model.keep_prob: keep_prob}
+
         return feed_dict
     
     def input_data(self, normalise = False):

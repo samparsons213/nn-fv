@@ -1,8 +1,10 @@
-import numpy as np
 import abc
-from utils import lazy_property
+
+import numpy as np
+
 from DiagnosisModel import DiagnosisPrediction
-from LSTMModel import LSTM
+from models.LSTMModel import LSTM
+
 
 class DataBase:
     __metaclass__ = abc.ABCMeta
